@@ -45,9 +45,6 @@ public class FileService {
                     // System.out.println(Arrays.toString(datas));
                     for (String data : datas) {
                         records.add(data);
-                        // System.out.println("line::>>>>>>" + data + "\n");
-                        // Integer i = 0;
-                        // stacks.put(++i, records);
                     }
                 }
             }
@@ -55,7 +52,7 @@ public class FileService {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        System.out.println(records);
+        // System.out.println(records);
         return records;
     }
 
