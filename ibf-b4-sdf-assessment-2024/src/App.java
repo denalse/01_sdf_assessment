@@ -1,14 +1,9 @@
 
-import java.io.BufferedReader;
 import java.io.Console;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -39,15 +34,15 @@ public class App {
                 case Constants.ONE:
                     // FileService.ReadCSV(fileName);
                     // FileService.pokeMap(fileName);
-
                     Integer input = Integer.parseInt(line);
                     printUniquePokemonStack(fileName, input);
-
+                    pressAnyKeyToContinue();
                     break;
 
                 case Constants.TWO:
 
                     printNext5StarsPokemon(fileName, pokemon);
+                    pressAnyKeyToContinue();
                     break;
 
                 case Constants.THREE:
@@ -56,18 +51,17 @@ public class App {
                     // System.out.println("Create a new Pokemon stack and save to a file");
                     String _fileName = console.readLine("Enter filename to save (e.g. path/filename.csv) > ");
                     FileService.writeAsCSV(pokemon, _fileName);
+                    pressAnyKeyToContinue();
                     break;
 
                 case Constants.FOUR:
 
                     printPokemonCardCount(fileName);
+                    pressAnyKeyToContinue();
 
                     break;
 
                 case Constants.QUIT:
-
-                    // if (quit = line.trim().trim().toLowerCase().equals(Constants.QUIT)) {
-                    // System.lineSeparator();
                     printExitMessage();
                     // }
 
@@ -90,7 +84,7 @@ public class App {
     public static void pressAnyKeyToContinue() {
         // your code here
         Console console = System.console();
-        String line;
+        console.readLine("Press any key to continue...");
         // line = console.readLine("Enter your selection >");
     }
 
