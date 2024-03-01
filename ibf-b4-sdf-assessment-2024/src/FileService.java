@@ -107,6 +107,7 @@ public class FileService {
 
             // }
             // scan.close();
+            System.out.println("Pokemons successfully saved to " + fullPathFilename + "\n");
 
         } catch (Exception ex) {
             ex.printStackTrace();
