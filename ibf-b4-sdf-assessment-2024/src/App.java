@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Map.Entry;
 import java.util.Optional;
 
@@ -192,26 +193,33 @@ public class App {
     public static void printPokemonCardCount(String fileName) {
         // Task 2 - your code here
         // try(FileReader fr = new FileReader(fileName)) {
-        //     BufferedReader br = new BufferedReader(fr);
+        // BufferedReader br = new BufferedReader(fr);
 
         // int count = 0;
 
-            List<String> lines = FileService.ReadCSV(fileName);
+        List<String> lines = FileService.ReadCSV(fileName);
 
-            Map<String, Integer> pokemonMap = new HashMap<>();
-            
-            for (String line : lines) {
-                pokemonMap.put(line, pokemonMap.getOrDefault(pokemonMap, 0)+1);
-                System.out.printf("Pokemon 1 : %s, Cards Count: %d", line);
+        Map<String, Integer> pokemonMap = new HashMap<>();
+
+        for (String line : lines) {
+            String[] data = line.split(",");
+            for (String d : data) {
+
+                pokemonMap.put(d, pokemonMap.getOrDefault(d, 0) + 1);
             }
-            
-            
-            System.out.println(pokemonMap.entrySet());
-            // Optional<Integer> opt = br.lines().
-                
-        
-
-
+            // System.out.printf("Pokemon 1 : %s, Cards Count: %d", line);
+        }
+        AtomicInteger counter = new AtomicInteger(0);
+        Optional<String> opt = pokemonMap.entrySet().stream()
+                .sorted((a, b) -> b.getValue().compareTo(a.getValue()))
+                .limit(10)
+                .map(entry -> {
+                    int index = counter.incrementAndGet();
+                    return "Pokemon " + index + ": " + entry.getValue() + " " + entry.getKey() + ", Cards Count: "
+                            + entry.getValue();
+                })
+                .reduce((result, entry) -> result + "\n" + entry);
+        opt.ifPresent(System.out::println);
 
     }
 
