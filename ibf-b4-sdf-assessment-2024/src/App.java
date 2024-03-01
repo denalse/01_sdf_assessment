@@ -5,8 +5,14 @@ import java.util.Scanner;
 
 public class App {
 
-    public static void main(String[] args) throws Exception {
+    FileService fileSvc;
+    public static String pokemon;
 
+    public static void main(String[] args) throws Exception {
+        String fileName = args[0];
+        if (args.length > 0) {
+            fileName = "data/Rush2.csv";
+        }
         // Run Your Code here
         boolean quit = false;
 
@@ -16,17 +22,46 @@ public class App {
 
             Console console = System.console();
             String line = console.readLine("Enter your selection >");
-            if (quit = line.trim().trim().toLowerCase().equals(Constants.QUIT)) {
-                System.lineSeparator();
-                printExitMessage();
+            // System.out.println("\n");
+
+            // if quit / other cases
+            switch (line) {
+                case Constants.ONE:
+                    // FileService.ReadCSV(fileName);
+                    FileService.pokeMap(fileName);
+
+                    break;
+
+                case Constants.TWO:
+
+                    break;
+
+                case Constants.THREE:
+
+                    break;
+
+                case Constants.FOUR:
+
+                    String pokemon = "";
+                    // System.out.println("Create a new Pokemon stack and save to a file");
+                    FileService.writeAsCSV(pokemon, fileName);
+
+                    break;
+
+                case Constants.QUIT:
+
+                    // if (quit = line.trim().trim().toLowerCase().equals(Constants.QUIT)) {
+                    // System.lineSeparator();
+                    printExitMessage();
+                    // }
+
+                    break;
+
+                default:
+                    break;
             }
 
         }
-
-        // String fileName = args[0];
-        // if (args.length > 0) {
-        // fileName = "data/Rush2.csv";
-        // }
 
     }
 
@@ -48,16 +83,16 @@ public class App {
 
         // Task 1 - your code here
         System.out.println("\nWelcome to Pokemon Gaole Legend 4 Rush 2\n");
-        System.out.printf("(%d) View unique list of Pokemon in the selected stack\n", Constants.ONE);
-        System.out.printf("(%d) Find next 5 stars Pokemon occurrence\n", Constants.TWO);
-        System.out.printf("(%d) Create a new Pokemon stack and save (append) to csv file\n", Constants.THREE);
-        System.out.printf("(%d) Print distinct Pokemon and cards count\n", Constants.FOUR);
+        System.out.printf("(%s) View unique list of Pokemon in the selected stack\n", Constants.ONE);
+        System.out.printf("(%s) Find next 5 stars Pokemon occurrence\n", Constants.TWO);
+        System.out.printf("(%s) Create a new Pokemon stack and save (append) to csv file\n", Constants.THREE);
+        System.out.printf("(%s) Print distinct Pokemon and cards count\n", Constants.FOUR);
         System.out.printf("(%s) To exit the program\n", Constants.QUIT, System.lineSeparator());
     }
-    
+
     // Task 1
     public static void printExitMessage() {
-        
+
         // Task 1 - your code here
         System.out.println();
         System.out.printf("Thank you for using the program...\n");
@@ -69,6 +104,7 @@ public class App {
     public static void savePokemonStack(String pokemonStack, String filename) {
 
         // Task 1 - your code here
+
     }
 
     // Task 2
