@@ -84,28 +84,29 @@ public class FileService {
         // try (BufferedReader br = new BufferedReader(new
         // FileReader(fullPathFilename))) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fullPathFilename))) {
-            // String line;
-            Scanner scan = new Scanner(System.in);
-            System.out.println("Create a new Pokemon stack and save to a new file > ");
-            // line = console.readLine("Create a new Pokemon stack and save to a new file >
-            // " + "\n");
-            String data = scan.nextLine();
-            String fileName = scan.nextLine();
+        //     // String line;
+        //     Scanner scan = new Scanner(System.in);
+        //     System.out.println("Create a new Pokemon stack and save to a new file > ");
 
-            while (scan.next() != null) {
-                // List<String> newStack = out.write(line);
-                // bw.write(data);
-                // bw.flush();
+        //     String data = scan.nextLine();
+        //     String fileName = scan.nextLine();
+
+        //     while (scan.next() != null) {
+        //         // List<String> newStack = out.write(line);
+        //         bw.write(data);
+        //         bw.newLine();
+        //         bw.flush();
                 
-                File file = new File(fileName);
+        //         System.out.println("Enter filename to save (e.g. path/filename.csv) > ");
+                File file = new File(fullPathFilename);
                 if (!file.exists() && !file.isDirectory()) {
                     file.createNewFile();
                 }
-                System.out.println("Enter filename to save (e.g. path/filename.csv) > ");
-                bw.write(data);
-            }
-            bw.flush();
-            scan.close();
+                bw.write(pokemons);
+                bw.flush();
+
+            // }
+            // scan.close();
 
         } catch (Exception ex) {
             ex.printStackTrace();

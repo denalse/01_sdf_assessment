@@ -52,8 +52,9 @@ public class App {
 
                 case Constants.THREE:
 
-                    String pokemon = "";
+                    String pokemon = console.readLine("Create a new Pokemon stack and save to a new file > ");
                     // System.out.println("Create a new Pokemon stack and save to a file");
+                    fileName = console.readLine("Enter filename to save (e.g. path/filename.csv) > ");
                     FileService.writeAsCSV(pokemon, fileName);
                     break;
 
