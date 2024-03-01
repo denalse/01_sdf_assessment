@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.Console;
 import java.io.EOFException;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -69,24 +70,15 @@ public class FileService {
                 list.add(Arrays.asList(line));
 
             }
-            // System.out.println(list);
-            List<String> res = new ArrayList<String>();
-            for (List<String> lst : list) {
-                // Integer i = 0;
-                // System.out.println(">>>>" + lst);
 
-                for (int i = 0; i < 9; i++) {
-                    stacks.put(i, lst);
-
-                }
+            for (int i = 0; i < list.size(); i++) {
+                stacks.put(i+1, list.get(i));
             }
-            System.out.println(stacks);
-
-        } catch (FileNotFoundException | EOFException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
+            
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
+        // System.out.println(stacks.entrySet());
         return stacks;
     }
 
@@ -94,28 +86,29 @@ public class FileService {
         // Task 1 - your code here
         // try (BufferedReader br = new BufferedReader(new
         // FileReader(fullPathFilename))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fullPathFilename))) {
+            // String line;
+            Scanner scan = new Scanner(System.in);
+            System.out.println("Create a new Pokemon stack and save to a new file > ");
+            // line = console.readLine("Create a new Pokemon stack and save to a new file >
+            // " + "\n");
+            String data = scan.nextLine();
+            String fileName = scan.nextLine();
 
-        String line;
-        Console console = System.console();
-        line = console.readLine("Create a new Pokemon stack and save to a new file > " + "\n");
-        
-        try (PrintStream out = new PrintStream(new FileOutputStream(fullPathFilename))) {
-            System.setOut(out);
-
-            while (line != null) {
+            while (scan.next() != null) {
                 // List<String> newStack = out.write(line);
-                System.out.println("POP>>>>>>>" + out);
-                out.flush();
-                out.flush();
-
-                fullPathFilename = console.readLine("Enter filename to save (e.g. path/filename.csv) > " + "\n");
+                // bw.write(data);
+                // bw.flush();
                 
-                // if (fullPathFilename == )
-                
-                // out.
-
+                File file = new File(fileName);
+                if (!file.exists() && !file.isDirectory()) {
+                    file.createNewFile();
+                }
+                System.out.println("Enter filename to save (e.g. path/filename.csv) > ");
+                bw.write(data);
             }
-            out.flush();
+            bw.flush();
+            scan.close();
 
         } catch (Exception ex) {
             ex.printStackTrace();

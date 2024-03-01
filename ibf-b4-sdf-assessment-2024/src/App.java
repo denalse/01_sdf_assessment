@@ -1,7 +1,9 @@
 
 import java.io.Console;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.Map.Entry;
 
 public class App {
 
@@ -18,7 +20,7 @@ public class App {
 
         while (!quit) {
             printHeader(); // step 1
-            pressAnyKeyToContinue(); // step 2
+            // pressAnyKeyToContinue(); // step 2
 
             Console console = System.console();
             String line = console.readLine("Enter your selection >");
@@ -28,7 +30,10 @@ public class App {
             switch (line) {
                 case Constants.ONE:
                     // FileService.ReadCSV(fileName);
-                    FileService.pokeMap(fileName);
+                    // FileService.pokeMap(fileName);
+
+                    Integer input = Integer.parseInt(line);
+                    printUniquePokemonStack(fileName, input);
 
                     break;
 
@@ -38,13 +43,12 @@ public class App {
 
                 case Constants.THREE:
 
-                    break;
-
-                case Constants.FOUR:
-
                     String pokemon = "";
                     // System.out.println("Create a new Pokemon stack and save to a file");
                     FileService.writeAsCSV(pokemon, fileName);
+                    break;
+
+                case Constants.FOUR:
 
                     break;
 
@@ -108,8 +112,26 @@ public class App {
     }
 
     // Task 2
-    public static void printUniquePokemonStack(Integer stack) {
+    public static void printUniquePokemonStack(String fileName, Integer stack) {
         // Task 2 - your code here
+        Console console = System.console();
+        String line = console.readLine("Display the list of unique Pokemon in stack (1 - 8) > ");
+
+        if (Integer.valueOf(line) > 8 || Integer.valueOf(line) < 0) {
+            System.err.println("Please enter a number between 1 to 8!");
+        }
+
+        // FileService.pokeMap(fileName);
+        for (Entry<Integer, List<String>> entry : FileService.pokeMap(fileName).entrySet()) {
+            Integer key = entry.getKey();
+
+            if (Integer.valueOf(line) == key) {
+                // for (int i = 0; i < key.; i++) {
+                List<String> values = entry.getValue();
+                System.out.printf("1. ==> " + entry.getValue());
+            }
+        }
+
     }
 
     // Task 2
