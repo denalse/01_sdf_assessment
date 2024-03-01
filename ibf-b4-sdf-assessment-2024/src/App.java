@@ -126,9 +126,22 @@ public class App {
             Integer key = entry.getKey();
 
             if (Integer.valueOf(line) == key) {
-                // for (int i = 0; i < key.; i++) {
-                List<String> values = entry.getValue();
-                System.out.printf("1. ==> " + entry.getValue());
+
+                String[] values = {};
+
+                for (String val : entry.getValue()) {
+                    values = val.split(",");
+                    // val.split("\n");
+                    // System.out.println("val" + val);
+                    // System.out.println("length" + values.length);
+                    int count = 1;
+                    for (int i = 0; i < values.length; i++) {
+                        // i+=1;
+                        System.out.printf(count + " ==> " +values[i] +"\n");
+                        count++;
+                    }
+                }
+
             }
         }
 
