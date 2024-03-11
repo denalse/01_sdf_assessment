@@ -23,17 +23,13 @@ public class App {
 
         while (!quit) {
             printHeader(); // step 1
-            // pressAnyKeyToContinue(); // step 2
 
             Console console = System.console();
             String line = console.readLine("Enter your selection >");
-            // System.out.println("\n");
 
             // if quit / other cases
             switch (line) {
                 case Constants.ONE:
-                    // FileService.ReadCSV(fileName);
-                    // FileService.pokeMap(fileName);
                     Integer input = Integer.parseInt(line);
                     printUniquePokemonStack(fileName, input);
                     pressAnyKeyToContinue();
@@ -68,6 +64,7 @@ public class App {
                     break;
 
                 default:
+                    System.out.println("\nYou have entered an invalid character, please try again.");
                     break;
             }
 
@@ -85,7 +82,6 @@ public class App {
         // your code here
         Console console = System.console();
         console.readLine("Press any key to continue...");
-        // line = console.readLine("Enter your selection >");
     }
 
     // Task 1
@@ -127,7 +123,6 @@ public class App {
             System.err.println("Please enter a number between 1 to 8!");
         }
 
-        // FileService.pokeMap(fileName);
         for (Entry<Integer, List<String>> entry : FileService.pokeMap(fileName).entrySet()) {
             Integer key = entry.getKey();
 
@@ -152,32 +147,46 @@ public class App {
 
     // Task 2
     public static void printNext5StarsPokemon(String fileName, String enteredPokemon) {
+        // 4* Espeon
+
         // Task 2 - your code here
-
         Console console = System.console();
-        String line = console.readLine(
-                "Search for the next occurrence of 5 stars Pokemon in all stacks based on the entered Pokemon > "
-                        + "\n");
+        enteredPokemon = console
+                .readLine("Search for the next occurence of 5 stars pokemon in all stacks based on entered pokemon > ");
 
-        for (Entry<Integer, List<String>> entry : FileService.pokeMap(fileName).entrySet()) {
+        Map<Integer, List<String>> map = FileService.pokeMap(fileName);
 
-            int key = entry.getKey();
-            System.out.println(key);
+        int count = 0;
 
-            for (String value : entry.getValue()) {
-                while (!value.equals(enteredPokemon)) {
-                    System.out.printf("Set %d", key + "\n");
-                    if (!entry.getValue().contains(enteredPokemon)) {
+        for (int i = 1; i <= 8; i++) {
 
-                        System.out.printf("%s not found in this set", enteredPokemon + "\n");
-
-                    } else {
-
-                        // if ()
-
-                    }
-
+            String[] pokeArr = map.get(i).get(0).split(",");
+            Boolean pokemonExist = false;
+            Boolean fiveStar = false;
+            int cardsCount = 0;
+            String fiveStarPokemon = "";
+            System.out.printf("Set %d\n", i);
+            
+            for (int j = 0; j < pokeArr.length; j++) {
+                if(pokeArr[j].equals(enteredPokemon)) {
+                    pokemonExist = true;
                 }
+                if (pokeArr[j].contains("5*")) {
+                    fiveStar = true;
+                    fiveStarPokemon = pokeArr[j];
+                    cardsCount = count;
+                }
+                count+=1;
+            }
+
+            if (!pokemonExist) {
+                System.out.printf("%s not found in this set.\n", enteredPokemon);
+            }
+            if (pokemonExist && !fiveStar) {
+                System.out.printf("No 5 stars Pokemon found subsequently in the stack.\n");
+            }
+            if (pokemonExist && fiveStar) {
+                System.out.printf("%s found >>> %d cards to go.\n", fiveStarPokemon, cardsCount);
             }
 
         }
@@ -187,10 +196,6 @@ public class App {
     // Task 2
     public static void printPokemonCardCount(String fileName) {
         // Task 2 - your code here
-        // try(FileReader fr = new FileReader(fileName)) {
-        // BufferedReader br = new BufferedReader(fr);
-
-        // int count = 0;
 
         List<String> lines = FileService.ReadCSV(fileName);
 
@@ -198,11 +203,10 @@ public class App {
 
         for (String line : lines) {
             String[] data = line.split(",");
+            
             for (String d : data) {
-
                 pokemonMap.put(d, pokemonMap.getOrDefault(d, 0) + 1);
             }
-            // System.out.printf("Pokemon 1 : %s, Cards Count: %d", line);
         }
         AtomicInteger counter = new AtomicInteger(0);
         Optional<String> opt = pokemonMap.entrySet().stream()
@@ -210,7 +214,7 @@ public class App {
                 .limit(10)
                 .map(entry -> {
                     int index = counter.incrementAndGet();
-                    return "Pokemon " + index + ": " + entry.getValue() + " " + entry.getKey() + ", Cards Count: "
+                    return "Pokemon " + index + ": " + entry.getKey() + ", Cards Count: "
                             + entry.getValue();
                 })
                 .reduce((result, entry) -> result + "\n" + entry);

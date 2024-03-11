@@ -10,3 +10,5 @@ Run:
 java -cp bin App data\sample.csv
 
 java -cp bin App data\Rush2.csv
+
+4* Espeon

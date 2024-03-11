@@ -34,7 +34,6 @@ public class FileService {
                     line = scan.nextLine();
                     String[] datas = line.split("\n");
 
-                    // System.out.println(Arrays.toString(datas));
                     for (String data : datas) {
                         records.add(data);
                     }
@@ -44,7 +43,6 @@ public class FileService {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        // System.out.println(records);
         return records;
     }
 
@@ -53,9 +51,7 @@ public class FileService {
         try (BufferedReader br = new BufferedReader(new FileReader(fullPathFilename))) {
             String line;
             List<List<String>> list = new ArrayList<>();
-            // Scanner scan = new Scanner(br);
             while ((line = br.readLine()) != null) {
-                // System.out.println(line);
                 list.add(Arrays.asList(line));
 
             }
@@ -67,29 +63,13 @@ public class FileService {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        // System.out.println(stacks.entrySet());
         return stacks;
     }
 
     public static void writeAsCSV(String pokemons, String fullPathFilename) {
-        // Task 1 - your code here
-        // try (BufferedReader br = new BufferedReader(new
-        // FileReader(fullPathFilename))) {
+        
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fullPathFilename))) {
-        //     // String line;
-        //     Scanner scan = new Scanner(System.in);
-        //     System.out.println("Create a new Pokemon stack and save to a new file > ");
 
-        //     String data = scan.nextLine();
-        //     String fileName = scan.nextLine();
-
-        //     while (scan.next() != null) {
-        //         // List<String> newStack = out.write(line);
-        //         bw.write(data);
-        //         bw.newLine();
-        //         bw.flush();
-                
-        //         System.out.println("Enter filename to save (e.g. path/filename.csv) > ");
                 File file = new File(fullPathFilename);
                 if (!file.exists() && !file.isDirectory()) {
                     file.createNewFile();
@@ -97,8 +77,6 @@ public class FileService {
                 bw.write(pokemons);
                 bw.flush();
 
-            // }
-            // scan.close();
             System.out.println("Pokemons successfully saved to " + fullPathFilename + "\n");
 
         } catch (Exception ex) {
